@@ -1,0 +1,38 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["node", "main.js"]
+    networks:
+      - default
+ 
+  db:
+      build:
+        context: ./db
+        dockerfile: db.dockerfile
+      restart: always
+      ports:
+        - "5432:5432"
+      volumes:
+        - database:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_DB=postgres
+        - POSTGRES_PASSWORD=postgres
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U postgres"]
+        interval: 5s
+        timeout: 5s
+        retries: 5
+      networks:
+        - default
+  
+volumes:
+  database:
+
+networks:
+  default:
