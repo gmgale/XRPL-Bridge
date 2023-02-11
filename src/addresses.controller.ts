@@ -3,7 +3,7 @@ import { AddressDto } from './dto/address.dto';
 import { AddressPatchDto } from './dto/address.patch.dto';
 import Pool from './dbconfig/dbconnector';
 
-@Controller({})
+@Controller('address')
 export class AddressesController {
   @Get()
   async getUser() {
