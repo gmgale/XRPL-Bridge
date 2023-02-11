@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
+import { AddressesController } from './addresses.controller';
 
-@Module({ controllers: [AppController] })
+@Module({ controllers: [AddressesController] })
 export class AppModule {}

@@ -3,9 +3,12 @@ import { AppModule } from './app.module';
 import Pool from './dbconfig/dbconnector';
 
 async function dbConnect() {
-  Pool.connect(function (err: any, client, done) {
-    if (err) throw new Error(err);
-    console.log('Connected');
+  Pool.connect(function (err: any) {
+    if (err) {
+      throw new Error(err);
+    } else {
+      console.log('Connected to database ✅');
+    }
   });
 }
 

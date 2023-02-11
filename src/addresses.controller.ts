@@ -4,23 +4,20 @@ import { AddressPatchDto } from './dto/address.patch.dto';
 import Pool from './dbconfig/dbconnector';
 
 @Controller({})
-export class AppController {
+export class AddressesController {
   @Get()
   async getUser() {
-    console.log('Hello from XRPL-Bridge');
     try {
       const client = await Pool.connect();
 
       const sql = 'SELECT * FROM addresses';
       const { rows } = await client.query(sql);
       const address = rows;
-      console.log(address);
 
       client.release();
 
       return address;
     } catch (error) {
-      console.log(Error);
       return error;
     }
   }
@@ -31,14 +28,12 @@ export class AppController {
       const client = await Pool.connect();
 
       const sql = `INSERT INTO addresses (address) VALUES ('${body.address}')`;
-      console.log(sql);
       const result = await client.query(sql);
 
       client.release();
 
       return result;
     } catch (error) {
-      console.log(Error);
       return error;
     }
   }
@@ -49,14 +44,12 @@ export class AppController {
       const client = await Pool.connect();
 
       const sql = `UPDATE addresses SET address = '${body.newAddress}' where address = '${body.address}'`;
-      console.log(sql);
       const result = await client.query(sql);
 
       client.release();
 
       return result;
     } catch (error) {
-      console.log(Error);
       return error;
     }
   }
@@ -67,14 +60,12 @@ export class AppController {
       const client = await Pool.connect();
 
       const sql = `DELETE from addresses where address = '${body.address}'`;
-      console.log(sql);
       const result = await client.query(sql);
 
       client.release();
 
       return result;
     } catch (error) {
-      console.log(Error);
       return error;
     }
   }
