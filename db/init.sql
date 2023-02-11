@@ -7,3 +7,18 @@ CREATE TABLE IF NOT EXISTS addresses (
   id              SERIAL PRIMARY KEY,
   address         VARCHAR(35) NULL
   );
+
+
+CREATE TABLE IF NOT EXISTS transactions (
+  id              SERIAL PRIMARY KEY,
+  address         VARCHAR(35) NOT NULL,
+  direction       VARCHAR(4) NOT NULL
+  );
+
+CREATE TABLE IF NOT EXISTS wallets (
+  id              SERIAL PRIMARY KEY,
+  publickey       VARCHAR(100) NOT NULL,
+  privatekey      VARCHAR(100) NOT NULL,
+  classicAddress  VARCHAR(35)  NOT NULL,
+  seed            VARCHAR(100) NOT NULL
+  );
