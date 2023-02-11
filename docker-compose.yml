@@ -1,24 +1,22 @@
 services:
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    depends_on:
-      db:
-        condition: service_healthy
-    command: ["node", "main.js"]
-    networks:
-      - default
+  # app:
+  #   build: .
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   command: ["node", "main.js"]
+  #   networks:
+  #     - default
  
   db:
-      build:
-        context: ./db
-        dockerfile: db.dockerfile
+      image: postgres:15.1
       restart: always
       ports:
         - "5432:5432"
       volumes:
-        - database:/var/lib/postgresql/data
+        - ./db:/docker-entrypoint-initdb.d/
       environment:
         - POSTGRES_USER=postgres
         - POSTGRES_DB=postgres

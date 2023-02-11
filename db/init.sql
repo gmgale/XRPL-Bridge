@@ -1,10 +1,9 @@
 CREATE USER docker;
-CREATE DATABASE docker;
+CREATE DATABASE docker WITH OWNER docker;
 GRANT ALL PRIVILEGES ON DATABASE docker TO docker;
+\connect docker docker;
 
-\connect docker;
--- TODO: Fix why below line works manually but doesnt load here
-CREATE TABLE IF NOT EXISTS wallets (
+CREATE TABLE IF NOT EXISTS addresses (
   id              SERIAL PRIMARY KEY,
   address         VARCHAR(35) NULL
   );
