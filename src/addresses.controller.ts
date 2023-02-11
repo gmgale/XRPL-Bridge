@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Patch, Delete } from '@nestjs/common';
 import { AddressDto } from './dto/address.dto';
 import { AddressPatchDto } from './dto/address.patch.dto';
 import Pool from './dbconfig/dbconnector';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const xrpl = require('xrpl');
 
 @Controller('address')
 export class AddressesController {
@@ -23,7 +25,7 @@ export class AddressesController {
   }
 
   @Post()
-  async createAddress(@Body() body: AddressDto) {
+  async addAddress(@Body() body: AddressDto) {
     try {
       const client = await Pool.connect();
 
@@ -65,6 +67,35 @@ export class AddressesController {
       client.release();
 
       return result;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  @Get('new')
+  async newAccount() {
+    try {
+      // Define the network client
+      const XRPLclient = new xrpl.Client('wss://s.altnet.rippletest.net:51233');
+      await XRPLclient.connect();
+
+      // ... custom code goes here
+      // Create a wallet and fund it with the Testnet faucet:
+      const fund_result = await XRPLclient.fundWallet();
+      const test_wallet = fund_result.wallet;
+      console.log(fund_result);
+
+      // Disconnect when done (If you omit this, Node.js won't end the process)
+      XRPLclient.disconnect();
+
+      const client = await Pool.connect();
+
+      const sql = `INSERT INTO addresses (address) VALUES ('${test_wallet.classicAddress}')`;
+      const result = await client.query(sql);
+
+      client.release();
+
+      return test_wallet;
     } catch (error) {
       return error;
     }
