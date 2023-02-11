@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete } from '@nestjs/common';
 import { AddressDto } from './dto/address.dto';
 import { AddressPatchDto } from './dto/address.patch.dto';
 import Pool from './dbconfig/dbconnector';
@@ -49,6 +49,24 @@ export class AppController {
       const client = await Pool.connect();
 
       const sql = `UPDATE addresses SET address = '${body.newAddress}' where address = '${body.address}'`;
+      console.log(sql);
+      const result = await client.query(sql);
+
+      client.release();
+
+      return result;
+    } catch (error) {
+      console.log(Error);
+      return error;
+    }
+  }
+
+  @Delete()
+  async deleteAddress(@Body() body: AddressDto) {
+    try {
+      const client = await Pool.connect();
+
+      const sql = `DELETE from addresses where address = '${body.address}'`;
       console.log(sql);
       const result = await client.query(sql);
 
