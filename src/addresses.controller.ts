@@ -71,33 +71,4 @@ export class AddressesController {
       return error;
     }
   }
-
-  @Get('new')
-  async newAccount() {
-    try {
-      // Define the network client
-      const XRPLclient = new xrpl.Client('wss://s.altnet.rippletest.net:51233');
-      await XRPLclient.connect();
-
-      // ... custom code goes here
-      // Create a wallet and fund it with the Testnet faucet:
-      const fund_result = await XRPLclient.fundWallet();
-      const test_wallet = fund_result.wallet;
-      console.log(fund_result);
-
-      // Disconnect when done (If you omit this, Node.js won't end the process)
-      XRPLclient.disconnect();
-
-      const client = await Pool.connect();
-
-      const sql = `INSERT INTO addresses (address) VALUES ('${test_wallet.classicAddress}')`;
-      const result = await client.query(sql);
-
-      client.release();
-
-      return test_wallet;
-    } catch (error) {
-      return error;
-    }
-  }
 }
