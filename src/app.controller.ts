@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { AddressDto } from './address.dto';
+import { Controller, Get, Post, Body, Patch } from '@nestjs/common';
+import { AddressDto } from './dto/address.dto';
+import { AddressPatchDto } from './dto/address.patch.dto';
 import Pool from './dbconfig/dbconnector';
 
 @Controller({})
@@ -41,6 +42,22 @@ export class AppController {
       return error;
     }
   }
-  // console.log(address);
-  // return address;
+
+  @Patch()
+  async updateAddress(@Body() body: AddressPatchDto) {
+    try {
+      const client = await Pool.connect();
+
+      const sql = `UPDATE addresses SET address = '${body.newAddress}' where address = '${body.address}'`;
+      console.log(sql);
+      const result = await client.query(sql);
+
+      client.release();
+
+      return result;
+    } catch (error) {
+      console.log(Error);
+      return error;
+    }
+  }
 }
