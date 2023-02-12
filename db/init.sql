@@ -10,9 +10,13 @@ CREATE TABLE IF NOT EXISTS addresses (
 
 
 CREATE TABLE IF NOT EXISTS transactions (
-  id              SERIAL PRIMARY KEY,
-  address         VARCHAR(35) NOT NULL,
-  direction       VARCHAR(4) NOT NULL
+  ledgerIndex     INTEGER PRIMARY KEY,
+  ledgerHash      VARCHAR(100) NOT NULL,
+  account         VARCHAR(35) NOT NULL,
+  destination     VARCHAR(35) NOT NULL,
+  ammount         INTEGER NOT NULL,
+  fee             INTEGER NOT NULL,
+  txnSig          VARCHAR(128) NOT NULL
   );
 
 CREATE TABLE IF NOT EXISTS wallets (

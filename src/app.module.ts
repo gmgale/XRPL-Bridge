@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AddressesController } from './addresses.controller';
-import { MonitorController } from './monitor.controller';
-import { TxController } from './tx.controller';
 import { WalletController } from './wallet.controller';
+import { AddressesController } from './addresses.controller';
+import { TxController } from './tx.controller';
+import { Monitor, UpdateAccounts } from './monitor';
 
 @Module({
-  controllers: [
-    AddressesController,
-    MonitorController,
-    TxController,
-    WalletController,
-  ],
+  controllers: [AddressesController, TxController, WalletController],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    UpdateAccounts();
+    Monitor();
+  }
+}
