@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS transactions (
   destination     VARCHAR(35) NOT NULL,
   ammount         INTEGER NOT NULL,
   fee             INTEGER NOT NULL,
-  txnSig          VARCHAR(128) NOT NULL
+  txSig           VARCHAR(128) NOT NULL
   );
 
 CREATE TABLE IF NOT EXISTS wallets (

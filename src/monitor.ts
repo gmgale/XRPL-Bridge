@@ -8,11 +8,12 @@ let accounts = [];
 export async function Monitor() {
   try {
     await client.connect();
-    client.connection.on('transaction', (ev) => {
-      console.log(JSON.stringify(ev, null, 2));
+    client.connection.on('transaction', (tx) => {
+      // console.log('Tx-START\n', JSON.stringify(tx, null, 2), '\nTx-END');
+      writeTxtoDB(tx);
     });
 
-    client.connection.request({
+    await client.connection.request({
       command: 'subscribe',
       accounts: accounts,
     });
@@ -36,10 +37,35 @@ export async function UpdateAccounts() {
       return e.address;
     });
 
-    console.log('Update accounts DONE.');
     poolClient.release();
   } catch (error) {
     console.log(error);
     return error;
   }
+}
+
+async function writeTxtoDB(tx: any) {
+  const client = await Pool.connect();
+
+  const sql = `INSERT INTO transactions (
+    ledgerIndex, 
+    ledgerHash,  
+    account,     
+    destination, 
+    ammount,     
+    fee,         
+    txSig
+    ) VALUES (
+      '${tx.ledger_index}',
+      '${tx.ledger_hash}', 
+      '${tx.transaction.Account}', 
+      '${tx.transaction.Destination}', 
+      '${tx.transaction.Amount}', 
+      '${tx.transaction.Fee}', 
+      '${tx.transaction.TxnSignature}'
+    )`;
+
+  await client.query(sql);
+
+  client.release();
 }
