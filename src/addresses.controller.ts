@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Patch, Delete } from '@nestjs/common';
 import { AddressDto } from './dto/address.dto';
 import { AddressPatchDto } from './dto/address.patch.dto';
 import Pool from './dbconfig/dbconnector';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const xrpl = require('xrpl');
 
-@Controller({})
+@Controller('address')
 export class AddressesController {
   @Get()
   async getUser() {
@@ -23,7 +25,7 @@ export class AddressesController {
   }
 
   @Post()
-  async createAddress(@Body() body: AddressDto) {
+  async addAddress(@Body() body: AddressDto) {
     try {
       const client = await Pool.connect();
 
