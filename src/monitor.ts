@@ -10,7 +10,7 @@ export async function Monitor() {
     await client.connect();
     client.connection.on('transaction', (tx) => {
       // console.log('Tx-START\n', JSON.stringify(tx, null, 2), '\nTx-END');
-      writeTxtoDB(tx);
+      writeTxToDB(tx);
     });
 
     await client.connection.request({
@@ -44,7 +44,7 @@ export async function UpdateAccounts() {
   }
 }
 
-async function writeTxtoDB(tx: any) {
+async function writeTxToDB(tx: any) {
   const client = await Pool.connect();
 
   const sql = `INSERT INTO transactions (
