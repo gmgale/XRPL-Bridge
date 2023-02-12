@@ -1,14 +1,16 @@
 services:
-  # app:
-  #   build: .
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
-  #   command: ["node", "main.js"]
-  #   networks:
-  #     - default
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      ['PG_CONN=${PG_CONN}']
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["node", "main.js"]
+    networks:
+      - default
  
   db:
       image: postgres:15.1
