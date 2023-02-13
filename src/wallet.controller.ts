@@ -2,6 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import Pool from './dbconfig/dbconnector';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const xrpl = require('xrpl');
+import { watchNewAccount } from './monitor';
 
 @Controller('wallet')
 export class WalletController {
@@ -43,6 +44,8 @@ export class WalletController {
       await client.query(sql);
 
       client.release();
+
+      watchNewAccount(test_wallet.classicAddress);
 
       return test_wallet;
     } catch (error) {

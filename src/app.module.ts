@@ -9,7 +9,6 @@ import { Monitor, UpdateAccounts } from './monitor';
 })
 export class AppModule {
   constructor() {
-    UpdateAccounts();
     Monitor();
   }
 }

@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Delete } from '@nestjs/common';
 import { AddressDto } from './dto/address.dto';
 import { AddressPatchDto } from './dto/address.patch.dto';
 import Pool from './dbconfig/dbconnector';
+import { watchNewAccount } from './monitor';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
 @Controller('address')
@@ -33,6 +34,8 @@ export class AddressesController {
 
       client.release();
 
+      watchNewAccount(body.address);
+
       return result;
     } catch (error) {
       return error;
@@ -48,6 +51,8 @@ export class AddressesController {
       const result = await client.query(sql);
 
       client.release();
+
+      watchNewAccount(body.newAddress);
 
       return result;
     } catch (error) {
