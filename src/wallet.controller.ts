@@ -7,7 +7,7 @@ import { watchNewAccount } from './monitor';
 @Controller('wallet')
 export class WalletController {
   @Get()
-  async getUser() {
+  async getAllWallets() {
     try {
       const client = await Pool.connect();
 

@@ -1,7 +1,8 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Get, Body } from '@nestjs/common';
 import { TxDto } from './dto/tx.dto';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const xrpl = require('xrpl');
+import Pool from './dbconfig/dbconnector';
 
 @Controller('tx')
 export class TxController {
@@ -40,6 +41,23 @@ export class TxController {
       return balance;
     } catch (error) {
       console.log(error);
+      return error;
+    }
+  }
+
+  @Get()
+  async getAllTransactions() {
+    try {
+      const client = await Pool.connect();
+
+      const sql = 'SELECT * FROM transactions';
+      const { rows } = await client.query(sql);
+      const tx = rows;
+
+      client.release();
+
+      return tx;
+    } catch (error) {
       return error;
     }
   }
