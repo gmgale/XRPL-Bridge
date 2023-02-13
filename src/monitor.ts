@@ -28,7 +28,6 @@ export async function Monitor() {
 
 export async function UpdateAccounts() {
   try {
-    const client = new xrpl.Client(process.env.XRPL_CLIENT);
     if (client.isConnected()) {
       client.disconnect();
     }
