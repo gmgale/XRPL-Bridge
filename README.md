@@ -11,6 +11,7 @@ docker compose up
 The monitor will start automatically. Port 3000 is then exposed as default and can be queried with any of the below endpoints.
 
 ## Endpoints
+Endpoints can be queried with Postman here: https://www.postman.com/cloudy-meadow-777256/workspace/gatehub.
 
 Requests and responses are below.
 
@@ -43,8 +44,13 @@ If you need to start completely fresh, you can run:
 ```bash
 make cbu
 ```
+## Demoing the app
+1.  Query the GET /wallet/new endpoint and take note of the Seed.
+2.  Query the same endpoint, this time taking not of the classicAddress. Both of these addresses will automatically added to the Wallets and Addresses tables. The monitor will immediately listen to tranasctions on the XRPL ledger with these account details.
+3.  Query the POST /tx enpoint using the above details to make a transaction.
+4.  Query the GET  /tx endpoint to see history of transactions made in the ledger.
 
-## Endpoint Request, Responces and Examples
+## Endpoint Request, Responses and Examples
 
 ### Wallets
 
