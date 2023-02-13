@@ -186,7 +186,7 @@ Request:
     "address": "rff5WQCE6LeqKUrcqaum6nK38XFHgvDu1n",
     "newAddress": "rff5WQCE6LeqKUrcqaum6nK38XFHgvDu1"
 }
-Response: Empty (http 200: OK)
+Response: Empty (http 204: OK)
 ```
 
 `DELETE /address`:
@@ -196,7 +196,7 @@ Request:
 {
     "address": "rff5WQCE6LeqKUrcqaum6nK38XFHgvDu1n"
 }
-Response: Empty (http 200: OK)
+Response: Empty (http 204: OK)
 ```
 
 ## For development
