@@ -1,20 +1,25 @@
 import Pool from './dbconfig/dbconnector';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const xrpl = require('xrpl');
-
 const client = new xrpl.Client(process.env.XRPL_CLIENT);
+
 let accounts = [];
 
 export async function Monitor() {
   try {
+    await UpdateAccounts();
+
     await client.connect();
+    console.log('Monitor started ✅');
     client.connection.on('transaction', (tx) => {
       writeTxToDB(tx);
     });
 
-    await client.connection.request({
-      command: 'subscribe',
-      accounts: accounts,
+    accounts.forEach(async (acc: string) => {
+      await client.connection.request({
+        command: 'subscribe',
+        accounts: [acc],
+      });
     });
   } catch (error) {
     console.log(error);
@@ -43,7 +48,21 @@ export async function UpdateAccounts() {
   }
 }
 
+export async function watchNewAccount(acc: string) {
+  try {
+    await client.connection.request({
+      command: 'subscribe',
+      accounts: [acc],
+    });
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
 async function writeTxToDB(tx: any) {
+  console.log('Transaction for monitored addresses detected!');
+
   const client = await Pool.connect();
 
   const sql = `INSERT INTO transactions (
