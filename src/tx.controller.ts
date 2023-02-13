@@ -29,6 +29,7 @@ export class TxController {
 
       // Submit signed blob --------------------------------------------------------
       const tx = await client.submitAndWait(signed.tx_blob);
+      console.log('Transaction successful! ✅');
 
       // Check transaction results -------------------------------------------------
       const balance = JSON.stringify(

@@ -10,6 +10,7 @@ export async function Monitor() {
     await UpdateAccounts();
 
     await client.connect();
+    console.log('Monitor started ✅');
     client.connection.on('transaction', (tx) => {
       writeTxToDB(tx);
     });
@@ -60,6 +61,8 @@ export async function watchNewAccount(acc: string) {
 }
 
 async function writeTxToDB(tx: any) {
+  console.log('Transaction for monitored addresses detected!');
+
   const client = await Pool.connect();
 
   const sql = `INSERT INTO transactions (
