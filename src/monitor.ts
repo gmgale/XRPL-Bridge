@@ -2,14 +2,13 @@ import Pool from './dbconfig/dbconnector';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const xrpl = require('xrpl');
 
-const client = new xrpl.Client('wss://s.altnet.rippletest.net:51233');
+const client = new xrpl.Client(process.env.XRPL_CLIENT);
 let accounts = [];
 
 export async function Monitor() {
   try {
     await client.connect();
     client.connection.on('transaction', (tx) => {
-      // console.log('Tx-START\n', JSON.stringify(tx, null, 2), '\nTx-END');
       writeTxToDB(tx);
     });
 

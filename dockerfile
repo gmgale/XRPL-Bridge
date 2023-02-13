@@ -20,9 +20,5 @@ RUN npm ci --omit=dev
 
 COPY --from=builder ./app/dist/ ./dist/
 
-# ENV PGUSER=postgres
-# ENV PGPASSWORD=postgres
-# ENV PGHOST=localhost
-
 ENTRYPOINT ["node", "./dist/src/main.js"]
 
