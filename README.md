@@ -11,6 +11,7 @@ docker compose up
 The monitor will start automatically. Port 3000 is then exposed as default and can be queried with any of the below endpoints.
 
 ## Endpoints
+Endpoints can be queried with Postman here: https://www.postman.com/cloudy-meadow-777256/workspace/gatehub.
 
 Requests and responses are below.
 
