@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete, HttpCode } from '@nestjs/common';
 import { AddressDto } from './dto/address.dto';
 import { AddressPatchDto } from './dto/address.patch.dto';
 import Pool from './dbconfig/dbconnector';
-import { watchNewAccount } from './monitor';
+import { watchNewAccount, stopWatchingAccount } from './monitor';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
 @Controller('address')
@@ -25,6 +25,7 @@ export class AddressesController {
   }
 
   @Post()
+  @HttpCode(201)
   async addAddress(@Body() body: AddressDto) {
     try {
       const client = await Pool.connect();
@@ -43,6 +44,7 @@ export class AddressesController {
   }
 
   @Patch()
+  @HttpCode(204)
   async updateAddress(@Body() body: AddressPatchDto) {
     try {
       const client = await Pool.connect();
@@ -52,6 +54,7 @@ export class AddressesController {
 
       client.release();
 
+      stopWatchingAccount(body.address);
       watchNewAccount(body.newAddress);
 
       return;
@@ -61,6 +64,7 @@ export class AddressesController {
   }
 
   @Delete()
+  @HttpCode(204)
   async deleteAddress(@Body() body: AddressDto) {
     try {
       const client = await Pool.connect();
@@ -69,6 +73,8 @@ export class AddressesController {
       const result = await client.query(sql);
 
       client.release();
+
+      stopWatchingAccount(body.address);
 
       return;
     } catch (error) {

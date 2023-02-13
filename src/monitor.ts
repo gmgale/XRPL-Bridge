@@ -60,6 +60,18 @@ export async function watchNewAccount(acc: string) {
   }
 }
 
+export async function stopWatchingAccount(acc: string) {
+  try {
+    await client.connection.request({
+      command: 'unsubscribe',
+      accounts: [acc],
+    });
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
 async function writeTxToDB(tx: any) {
   console.log('Transaction for monitored addresses detected!');
 
