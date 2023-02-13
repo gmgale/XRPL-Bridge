@@ -36,7 +36,7 @@ export class AddressesController {
 
       watchNewAccount(body.address);
 
-      return result;
+      return;
     } catch (error) {
       return error;
     }
@@ -54,7 +54,7 @@ export class AddressesController {
 
       watchNewAccount(body.newAddress);
 
-      return result;
+      return;
     } catch (error) {
       return error;
     }
@@ -70,7 +70,7 @@ export class AddressesController {
 
       client.release();
 
-      return result;
+      return;
     } catch (error) {
       return error;
     }

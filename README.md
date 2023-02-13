@@ -1,30 +1,197 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# XRPL-Bridge
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## A XRPL Ledger Monitor
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Running the app is as easy as:
 
-## Description
+```bash
+docker compose up
+```
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The monitor will start automatically. Port 3000 is then exposed as default and can be queried with any of the below endpoints.
+
+## Endpoints
+
+Requests and responses are below.
+
+### Wallets
+
+`GET /wallet` - Get all wallets from wallets table.
+
+`GET /wallet/new` - Get a new wallet and fund from the Testnet faucet.
+
+### Transactions
+
+`GET /tx` - Get all transactions that have been stored by the monitor
+
+`POST /tx` - Create and submit a payment to the XRPL ledger.
+
+### Addresses
+
+`GET /address` - Get all addresses from the addresses table.
+
+`POST /address` - Add a new address to the addresses table.
+
+`PATCH /address` - Update an existing address on the addresses table.
+
+`DELETE /address` - Delete an existing address from the addresses table.
+
+## Clean install
+
+If you need to start completely fresh, you can run:
+
+```bash
+make cbu
+```
+
+## Endpoint Request, Responces and Examples
+
+### Wallets
+
+`GET /wallet`:
+
+```bash
+Request: Empty
+Response: (http: 200 OK)
+[
+    {
+        "id": 1,
+        "publickey": "ED3949D822651DB05C34348A0B1FAE2289BB5448DDEDD5F3C3C0B0DF16AA9F4DC5",
+        "privatekey": "ED3FB668330B201EE7B7A833FC8F75B9A0732A945D5CAF053C17AE36678913679D",
+        "classicaddress": "rpDhtr9qTjMmKpxaBw8U8DAkzzTCF8ByYj",
+        "seed": "sEdVZeEt29QWA2QcruFgYuPtYBJ85gd"
+    },
+    {
+        "id": 2,
+        "publickey": "ED9AC6CDBAA2425311F6B80997BB5ABE8D2EBCFE00D99CBDC4644D6725D0E8A868",
+        "privatekey": "ED5074ADC8283FE616FD26F022E7657DFDA7542D808C7BBBC6E9BE7B080C09E589",
+        "classicaddress": "r3Ec4e3UTuAvKDU49drqMNshwrSRrFkbZo",
+        "seed": "sEdSkwNGCQiWmounCouDBmbuNKhobW9"
+    }
+]
+```
+
+`GET /wallet/new`:
+
+```bash
+Request: Empty
+Response: (http: 200 OK)
+{
+    "publicKey": "ED41EB23A9E1754FC035216C6D8602DD1F657A9F31948A91AFC36E5B66A95604C6",
+    "privateKey": "ED683532899D7BF95ED3CD09DAE32D567FF9A0A2A9F6BEF16530F4B45333D642D0",
+    "classicAddress": "rfg9nFBrqGdRQNEcxQAu2XRUEEcGyuYu7u",
+    "seed": "sEdSCengiJ18YBKFAJDAs11nFPVrHDp"
+}
+```
+
+## Transactions
+
+`GET /tx`:
+
+```bash
+Request: Empty
+Response: (http: 200 OK)
+[
+    {
+        "id": 1,
+        "ledgerindex": 35353194,
+        "ledgerhash": "B94F60DAD16EE7118B5F9836D48624EFC62901F24DB77F8E35A60C4EBDBCF7C1",
+        "account": "rff5WQCE6LeqKUrcqaum6nK38XFHgvDu1n",
+        "destination": "rfg9nFBrqGdRQNEcxQAu2XRUEEcGyuYu7u",
+        "ammount": 100,
+        "fee": 12,
+        "txsig": "2B0740BF7498F44BC543F835419F00FA32C9BEA3D85D284F670134BA57D317AD00F28C066E66C0FCECF0774C170318A36A97DE9FB7975762A34A8669E72CB307"
+    }
+]
+```
+
+`POST /tx`:
+
+```bash
+Request:
+{
+  "TransactionType": "Payment",
+  "Seed": "sEd7sRFNfHV5Eo7453EDncJCR3BFcnM",
+  "Amount": "100",
+  "Destination": "rfg9nFBrqGdRQNEcxQAu2XRUEEcGyuYu7u"
+}
+Response: (http: 200 OK)
+[
+  {
+    "account": "rfg9nFBrqGdRQNEcxQAu2XRUEEcGyuYu7u",
+    "balances": [
+      {
+        "currency": "XRP",
+        "value": "0.0001"
+      }
+    ]
+  },
+{
+  "account": "rff5WQCE6LeqKUrcqaum6nK38XFHgvDu1n",
+  "balances": [
+      {
+        "currency": "XRP",
+        "value": "-0.000112"
+      }
+    ]
+  }
+]
+```
+
+### Addresses
+
+`GET /address`:
+
+```bash
+Request: Empty
+Response: (http: 200 OK)
+[
+    {
+        "id": 1,
+        "address": "rff5WQCE6LeqKUrcqaum6nK38XFHgvDu1n"
+    },
+    {
+        "id": 2,
+        "address": "rfg9nFBrqGdRQNEcxQAu2XRUEEcGyuYu7u"
+    },
+]
+```
+
+`POST /address`:
+
+```bash
+Request:
+{
+    "address": "rff5WQCE6LeqKUrcqaum6nK38XFHgvDu1n"
+}
+Response: Empty (http 201: Created)
+```
+
+`PATCH /address`:
+
+```bash
+Request:
+{
+    "address": "rff5WQCE6LeqKUrcqaum6nK38XFHgvDu1n",
+    "newAddress": "rff5WQCE6LeqKUrcqaum6nK38XFHgvDu1"
+}
+Response: Empty (http 200: OK)
+```
+
+`DELETE /address`:
+
+```bash
+Request:
+{
+    "address": "rff5WQCE6LeqKUrcqaum6nK38XFHgvDu1n"
+}
+Response: Empty (http 200: OK)
+```
+
+## For development
+
+You may start a Postgresql Docker container seperately and develop the application using your editor with the following instructions:
+(Database connection will be automatically handled or can be manually configured in .env)
 
 ## Installation
 
@@ -35,39 +202,14 @@ $ npm install
 ## Running the app
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [George Gale](gmgale@icloud.com)
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+XRPL-Bridge is [MIT licensed](LICENSE).
