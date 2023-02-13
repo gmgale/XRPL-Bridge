@@ -11,7 +11,7 @@ export class TxController {
       const wallet = xrpl.Wallet.fromSeed(body.Seed);
 
       // Define the network client
-      const client = new xrpl.Client('wss://s.altnet.rippletest.net:51233');
+      const client = new xrpl.Client(process.env.XRPL_CLIENT);
       await client.connect();
 
       // Prepare transaction -------------------------------------------------------

@@ -25,14 +25,13 @@ export class WalletController {
   @Get('new')
   async newWallet() {
     try {
-      const XRPLclient = new xrpl.Client('wss://s.altnet.rippletest.net:51233');
+      const XRPLclient = new xrpl.Client(process.env.XRPL_CLIENT);
       await XRPLclient.connect();
 
       // Create a wallet and fund it with the Testnet faucet:
       const fund_result = await XRPLclient.fundWallet();
       const test_wallet = fund_result.wallet;
 
-      // Disconnect when done (If you omit this, Node.js won't end the process)
       XRPLclient.disconnect();
 
       const client = await Pool.connect();

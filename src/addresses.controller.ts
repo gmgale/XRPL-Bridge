@@ -3,7 +3,6 @@ import { AddressDto } from './dto/address.dto';
 import { AddressPatchDto } from './dto/address.patch.dto';
 import Pool from './dbconfig/dbconnector';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const xrpl = require('xrpl');
 
 @Controller('address')
 export class AddressesController {
