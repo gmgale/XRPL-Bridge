@@ -17,7 +17,7 @@ The monitor will start automatically and listen for transactions from the addres
 This application uses NestJS and Postgresql.
 
 ## Endpoints
-Endpoints can be queried with Postman here: https://www.postman.com/cloudy-meadow-777256/workspace/gatehub.
+Endpoints can be queried with Postman here: https://www.postman.com/cloudy-meadow-777256/workspace/xrpl-bridge.
 
 Requests and responses are below.
 
