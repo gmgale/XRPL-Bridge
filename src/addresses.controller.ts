@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Delete, HttpCode } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Delete,
+  HttpCode,
+} from '@nestjs/common';
 import { AddressDto } from './dto/address.dto';
 import { AddressPatchDto } from './dto/address.patch.dto';
 import Pool from './dbconfig/dbconnector';
@@ -30,8 +38,8 @@ export class AddressesController {
     try {
       const client = await Pool.connect();
 
-      const sql = `INSERT INTO addresses (address) VALUES ('${body.address}')`;
-      const result = await client.query(sql);
+      const sql = `INSERT INTO addresses (address) VALUES ($1)`;
+      const result = await client.query(sql, [body.address]);
 
       client.release();
 
@@ -49,8 +57,8 @@ export class AddressesController {
     try {
       const client = await Pool.connect();
 
-      const sql = `UPDATE addresses SET address = '${body.newAddress}' where address = '${body.address}'`;
-      const result = await client.query(sql);
+      const sql = `UPDATE addresses SET address = ($1) where address = ($2)`;
+      const result = await client.query(sql, [body.newAddress, body.address]);
 
       client.release();
 
@@ -69,8 +77,8 @@ export class AddressesController {
     try {
       const client = await Pool.connect();
 
-      const sql = `DELETE from addresses where address = '${body.address}'`;
-      const result = await client.query(sql);
+      const sql = `DELETE from addresses where address = $1`;
+      const result = await client.query(sql, [body.address]);
 
       client.release();
 

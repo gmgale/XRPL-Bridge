@@ -16,14 +16,22 @@ export async function Monitor() {
     });
 
     accounts.forEach(async (acc: string) => {
-      await client.connection.request({
-        command: 'subscribe',
-        accounts: [acc],
-      });
+      try {
+        await client.connection.request({
+          command: 'subscribe',
+          accounts: [acc],
+        });
+      } catch (error) {
+        console.log({
+          error: error.data.error_message,
+          account: error.data.request.accounts,
+        });
+      }
     });
   } catch (error) {
-    console.log(error);
-    return error;
+    console.log({
+      error: error.data.error_message,
+    });
   }
 }
 
@@ -43,8 +51,10 @@ export async function UpdateAccounts() {
 
     poolClient.release();
   } catch (error) {
-    console.log(error);
-    return error;
+    console.log({
+      error: error.data.error_message,
+      account: error.data.request.accounts,
+    });
   }
 }
 
@@ -55,8 +65,10 @@ export async function watchNewAccount(acc: string) {
       accounts: [acc],
     });
   } catch (error) {
-    console.log(error);
-    return error;
+    console.log({
+      error: error.data.error_message,
+      account: error.data.request.accounts,
+    });
   }
 }
 
@@ -67,8 +79,10 @@ export async function stopWatchingAccount(acc: string) {
       accounts: [acc],
     });
   } catch (error) {
-    console.log(error);
-    return error;
+    console.log({
+      error: error.data.error_message,
+      account: error.data.request.accounts,
+    });
   }
 }
 

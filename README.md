@@ -1,7 +1,10 @@
-# XRPL-Bridge
+# XRPL Bridge
 
-## A XRPL Ledger Monitor
-An application to monitor and send transactions on the XRPL blockchain.
+## A XRPL Testnet Blockchain Ledger Monitor and Transaction Executor
+A proof of concept application to monitor and send transactions on the XRPL Testnet blockchain.
+
+⚠️ No user authentication is implemented and therefor data between the API and client is unencrypted (private keys, seed phrases etc.), use for testing purposes only and DO NOT use with Mainnet or other legitimate accounts. By using this software you agree the owner and author of this repository bares no responsibly to the misuse of this software or financial loss to the user.
+️
 
 ## Running the app is as easy as:
 
@@ -11,7 +14,7 @@ docker compose up
 
 The monitor will start automatically and listen for transactions from the addresses table. Port 3000 is then exposed as default and can be queried with any of the below endpoints.
 
-This applicaion uses NestJS and Postgresql.
+This application uses NestJS and Postgresql.
 
 ## Endpoints
 Endpoints can be queried with Postman here: https://www.postman.com/cloudy-meadow-777256/workspace/gatehub.
@@ -51,8 +54,8 @@ make cbu
 
 We can create a wallet, sent a transaction and store the monitors data:
 1.  Query the GET /wallet/new endpoint and take note of the Seed.
-2.  Query the same endpoint, this time taking note of the classicAddress. Both of these addresses will automatically added to the Wallets and Addresses tables. The monitor will immediately listen to tranasctions on the XRPL ledger with these account details.
-3.  Query the POST /tx enpoint using the above details to make a transaction.
+2.  Query the same endpoint, this time taking note of the classicAddress. Both of these addresses will automatically added to the Wallets and Addresses tables. The monitor will immediately listen to transactions on the XRPL ledger with these account details.
+3.  Query the POST /tx endpoint using the above details to make a transaction.
 4.  Query the GET  /tx endpoint to see history of transactions made in the ledger.
 
 ## Endpoint Request, Responses and Examples
@@ -83,6 +86,7 @@ Response: (http: 200 OK)
 ```
 
 `GET /wallet/new`:
+⚠️ This data is send unencrypted, only use for test data!
 
 ```bash
 Request: Empty
@@ -117,6 +121,7 @@ Response: (http: 200 OK)
 ```
 
 `POST /tx`:
+⚠️ This data is send unencrypted, only use test data!
 
 ```bash
 Request:
@@ -201,7 +206,7 @@ Response: Empty (http 204: OK)
 
 ## For development
 
-You may start a Postgresql Docker container seperately and develop the application using your editor with the following instructions:
+You may start a Postgresql Docker container separately and develop the application using your editor with the following instructions:
 (Database connection will be automatically handled or can be manually configured in .env)
 
 ## Installation
@@ -219,8 +224,5 @@ $ npm run start:dev
 
 ## Stay in touch
 
-- Author - [George Gale](gmgale@icloud.com)
+- Author - [George Gale](mailto:gmgale@icloud.com)
 
-## License
-
-XRPL-Bridge is [MIT licensed](LICENSE).

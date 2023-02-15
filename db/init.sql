@@ -23,7 +23,5 @@ CREATE TABLE IF NOT EXISTS transactions (
 CREATE TABLE IF NOT EXISTS wallets (
   id              SERIAL PRIMARY KEY,
   publickey       VARCHAR(100) NOT NULL,
-  privatekey      VARCHAR(100) NOT NULL,
-  classicAddress  VARCHAR(35)  NOT NULL,
-  seed            VARCHAR(100) NOT NULL
+  classicAddress  VARCHAR(35)  NOT NULL
   );
