@@ -3,7 +3,7 @@
 ## A XRPL Testnet Blockchain Ledger Monitor and Transaction Executor
 A proof of concept application to monitor and send transactions on the XRPL Testnet blockchain.
 
-⚠️ No user authentication is implemented and therefor data between the API and client is unencrypted (private keys, seed phrases etc.), use for testing purposes only and DO NOT use with Mainnet or other legitimate accounts. By using this software you agree the owner and author of this repository bares no responsibly to the misuse of this software or financial loss to the user.
+⚠️ No user authentication is implemented and therefore data between the API and client is unencrypted (private keys, seed phrases etc.), use for testing purposes only and DO NOT use with Mainnet or other legitimate accounts. By using this software you agree the owner and author of this repository bares no responsibly to the misuse of this software or financial loss to the user.
 ️
 
 ## Running the app is as easy as:
