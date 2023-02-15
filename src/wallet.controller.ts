@@ -38,7 +38,7 @@ export class WalletController {
       const client = await Pool.connect();
 
       let sql = `INSERT INTO wallets (publickey,  classicAddress) VALUES (
-        '$1', '$2')`;
+        $1, $2)`;
       await client.query(sql, [
         test_wallet.publicKey,
         test_wallet.classicAddress,

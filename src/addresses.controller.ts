@@ -77,7 +77,7 @@ export class AddressesController {
     try {
       const client = await Pool.connect();
 
-      const sql = `DELETE from addresses where address = $1`;
+      const sql = `DELETE from addresses where address = ($1)`;
       const result = await client.query(sql, [body.address]);
 
       client.release();
