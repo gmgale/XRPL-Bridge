@@ -53,11 +53,10 @@ export class TxController {
 
       const sql = 'SELECT * FROM transactions';
       const { rows } = await client.query(sql);
-      const tx = rows;
 
       client.release();
 
-      return tx;
+      return rows;
     } catch (error) {
       return error;
     }

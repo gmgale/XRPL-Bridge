@@ -37,8 +37,14 @@ export class WalletController {
 
       const client = await Pool.connect();
 
-      let sql = `INSERT INTO wallets (publickey, privatekey, classicAddress, seed) VALUES ('${test_wallet.publicKey}', '${test_wallet.privateKey}', '${test_wallet.classicAddress}', '${test_wallet.seed}')`;
-      await client.query(sql);
+      let sql = `INSERT INTO wallets (publickey, privatekey, classicAddress, seed) VALUES (
+        '$1', '$2', '$3', '$4')`;
+      await client.query(sql, [
+        test_wallet.publicKey,
+        test_wallet.privateKey,
+        test_wallet.classicAddress,
+        test_wallet.seed,
+      ]);
 
       sql = `INSERT INTO addresses (address) VALUES ('${test_wallet.classicAddress}')`;
       await client.query(sql);
