@@ -2,7 +2,7 @@ services:
   app:
     build: .
     ports:
-      - '3000:3000'
+      - '${BE_PORT}:3000'
     environment: ['PG_CONN=${PG_CONN}', 'XRPL_CLIENT=${XRPL_CLIENT}']
     depends_on:
       db:
