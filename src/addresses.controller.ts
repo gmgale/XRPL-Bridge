@@ -13,7 +13,7 @@ import Pool from './dbconfig/dbconnector';
 import { watchNewAccount, stopWatchingAccount } from './monitor';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
-@Controller('address')
+@Controller('addresses')
 export class AddressesController {
   @Get()
   async getUser() {
