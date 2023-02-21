@@ -15,6 +15,7 @@ async function dbConnect() {
 async function bootstrap() {
   await dbConnect();
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();
