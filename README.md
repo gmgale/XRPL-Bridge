@@ -12,7 +12,7 @@ A proof of concept application to monitor and send transactions on the XRPL Test
 docker compose up
 ```
 
-The monitor will start automatically and listen for transactions from the addresses table. Port 3001 is then exposed as default and can be queried with any of the below endpoints.
+The monitor will start automatically and listen for transactions on the ledger that match wallet addresses from the addresses table. Port 3001 is then exposed as default and can be queried with any of the below endpoints.
 
 This application uses NestJS and Postgresql.
 
