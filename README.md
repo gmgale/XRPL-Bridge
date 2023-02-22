@@ -19,7 +19,7 @@ This application uses NestJS and Postgresql.
 ## Endpoints
 Endpoints can be queried with Postman here: https://www.postman.com/cloudy-meadow-777256/workspace/xrpl-bridge.
 
-Requests and responses are below.
+Requests and responses are detailed further below.
 
 ### Wallets
 
@@ -29,7 +29,7 @@ Requests and responses are below.
 
 ### Transactions
 
-`GET /tx` - Get all transactions that have been stored by the monitor
+`GET /tx` - Get all transactions that have been stored by the monitor.
 
 `POST /tx` - Create and submit a payment to the XRPL ledger.
 
