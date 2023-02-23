@@ -12,14 +12,14 @@ A proof of concept application to monitor and send transactions on the XRPL Test
 docker compose up
 ```
 
-The monitor will start automatically and listen for transactions from the addresses table. Port 3000 is then exposed as default and can be queried with any of the below endpoints.
+The monitor will start automatically and listen for transactions on the ledger that match wallet addresses from the addresses table. Port 3001 is then exposed as default and can be queried with any of the below endpoints.
 
 This application uses NestJS and Postgresql.
 
 ## Endpoints
 Endpoints can be queried with Postman here: https://www.postman.com/cloudy-meadow-777256/workspace/xrpl-bridge.
 
-Requests and responses are below.
+Requests and responses are detailed further below.
 
 ### Wallets
 
@@ -29,7 +29,7 @@ Requests and responses are below.
 
 ### Transactions
 
-`GET /tx` - Get all transactions that have been stored by the monitor
+`GET /tx` - Get all transactions that have been stored by the monitor.
 
 `POST /tx` - Create and submit a payment to the XRPL ledger.
 
