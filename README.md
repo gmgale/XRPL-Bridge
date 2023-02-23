@@ -218,6 +218,7 @@ $ npm install
 ## Running the app
 
 ```bash
+Start the PostgreSQL docker image manually.
 $ npm run start:dev
 
 ```
