@@ -1,5 +1,5 @@
 services:
-  XRPL-Backend:
+  xrpl-backend:
     build: ./backend
     ports:
       - '${BE_PORT}:3001'
@@ -30,12 +30,12 @@ services:
     networks:
       - default
 
-  XRPL-Frontend:
+  xrpl-frontend:
     build: ./frontend
     ports:
       - '${FE_PORT}:3000'
     depends_on:
-      - XRPL-Backend
+      - xrpl-backend
     networks:
       - default
 volumes:
