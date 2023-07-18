@@ -16,6 +16,8 @@ The monitor will start automatically and listen for transactions on the ledger t
 
 This application uses NestJS and Postgresql.
 
+The frontend is currently under development can be accessed at http://0.0.0.0:3000.
+
 ## Endpoints
 Endpoints can be queried with Postman here: https://www.postman.com/cloudy-meadow-777256/workspace/xrpl-bridge.
 
