@@ -88,7 +88,7 @@ Response: (http: 200 OK)
 ```
 
 `GET /wallet/new`:
-⚠️ This data is send unencrypted, only use for test data!
+⚠️ This data is sent unencrypted, only use for test data!
 
 ```bash
 Request: Empty
@@ -123,7 +123,7 @@ Response: (http: 200 OK)
 ```
 
 `POST /tx`:
-⚠️ This data is send unencrypted, only use test data!
+⚠️ This data is sent unencrypted, only use test data!
 
 ```bash
 Request:
